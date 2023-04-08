@@ -46,5 +46,11 @@
 ```
 
 - Now finally to run the project setup you will have to do two things
+
   1. `yarn watch` in one terminal (will watch and compile the typescript changes)
   2. `yarn dev` in another terminal (will re execute the dis/index.js folder on every changes)
+
+- You can create a migration after you've defined your model / entity `npx mikro-orm migration:create`
+
+- to rollback a migration you can do
+  1. `npx mikro-orm migration:down`
