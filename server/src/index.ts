@@ -3,7 +3,8 @@ import mikroOrmConfig from './mikro-orm.config';
 import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import { buildSchema } from 'type-graphql';
-import { CategoryResolver } from './resolvers/hello';
+import { CategoryResolver } from './resolvers/CategoryResolver';
+import { TestResolver } from './resolvers/TestResolver';
 
 const db = async () => {
     const orm = await MikroORM.init(mikroOrmConfig);
@@ -13,9 +14,10 @@ const db = async () => {
 
     const apolloServer = new ApolloServer({
         schema: await buildSchema({
-            resolvers: [CategoryResolver],
-            validate: false
-        })
+            resolvers: [TestResolver, CategoryResolver],
+            validate: false,
+        }),
+        context: () => ({ em: orm.em })
     });
     await apolloServer.start();
     apolloServer.applyMiddleware({ app });

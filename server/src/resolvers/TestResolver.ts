@@ -1,11 +1,10 @@
 import { Query, Resolver } from "type-graphql";
 
 @Resolver()
-export class CategoryResolver {
+export class TestResolver {
 
     @Query(() => String)
-    categories() {
-        return 'hello';
+    index() {
+        return 'test resolver';
     }
-
 }
