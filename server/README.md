@@ -54,3 +54,9 @@
 
 - to rollback a migration you can do
   1. `npx mikro-orm migration:down`
+
+## Graphql and Node setup
+
+- Install packages `yarn add express apollo-server-express graphql type-graphql`
+- Install package `yarn add -D @types/express `
+- After you setup your `graphql` with apollo server and completed setting up your resolver you can open `localhost:4000/graphql`

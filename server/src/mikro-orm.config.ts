@@ -8,6 +8,7 @@ export default {
         glob: '!(*.d).{js,ts}',
     },
     dbName: 'js_fullstack',
+    allowGlobalContext: true,
     entities: [Category],
     user: 'postgres',
     debug: process.env.NODE_ENV !== 'production',
