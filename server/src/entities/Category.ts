@@ -13,10 +13,10 @@ export class Category {
     name!: string;
 
     @Field()
-    @Property()
-    createdAt: Date = new Date();
+    @Property({ onCreate: () => new Date() })
+    createdAt?: Date = new Date();
 
     @Field()
     @Property({ onUpdate: () => new Date() })
-    updatedAt: Date = new Date();
+    updatedAt?: Date = new Date();
 }
