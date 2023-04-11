@@ -1,6 +1,7 @@
 import { MikroORM } from "@mikro-orm/core";
 import path from "path";
 import { Category } from "./entities/Category";
+import { User } from "./entities/User";
 
 export default {
     migrations: {
@@ -9,7 +10,7 @@ export default {
     },
     dbName: 'js_fullstack',
     allowGlobalContext: true,
-    entities: [Category],
+    entities: [Category, User],
     user: 'postgres',
     debug: process.env.NODE_ENV !== 'production',
     type: 'postgresql',
