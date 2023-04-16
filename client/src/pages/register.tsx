@@ -16,8 +16,9 @@ const Register: React.FC<RegisterProps> = () => {
             <InputField placeholder="Usernane" name="username" label="Username"/>
             <br />
             <InputField placeholder="Password" name="password" label="Password" type="password"/>
-
+            <br />
             <hr />
+            <br />
             <Button type="submit" color="red" isLoading={isSubmitting}>Register</Button>
           </Form>
         );
