@@ -48,6 +48,17 @@ export class UserResolver {
             }
         }
 
+        const existingUser = await em.findOne(User, { email: options.email })
+        if (existingUser)
+            return {
+                error: [
+                    {
+                        field: 'email',
+                        message: 'This email is already registered'
+                    }
+                ]
+            }
+
         try {
             const user = em.create(User, {
                 email: options.email,

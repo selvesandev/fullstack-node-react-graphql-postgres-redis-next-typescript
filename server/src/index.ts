@@ -23,7 +23,7 @@ const db = async () => {
     await apolloServer.start();
     apolloServer.applyMiddleware({ app });
     app.listen(4000, () => {
-        console.log('server is listening on port 6000. http://localhost:6000');
+        console.log('server is listening on port 6000. http://localhost:4000');
     });
 };
 
