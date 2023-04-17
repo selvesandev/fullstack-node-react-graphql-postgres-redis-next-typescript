@@ -60,3 +60,17 @@
 - Install packages `yarn add express apollo-server-express graphql type-graphql`
 - Install package `yarn add -D @types/express `
 - After you setup your `graphql` with apollo server and completed setting up your resolver you can open `localhost:4000/graphql`
+
+## Perform a custom query
+
+```typescript
+import { EntityManager } from "@mikro-orm/knex";
+
+const result = await (em as EntityManager)
+  .createQueryBuilder(User)
+  .getKnexQuery()
+  .insert({
+    username: "dev.selvesan@gmail.com",
+  })
+  .returning("*");
+```

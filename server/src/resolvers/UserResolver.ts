@@ -48,6 +48,7 @@ export class UserResolver {
             }
         }
 
+
         const existingUser = await em.findOne(User, { email: options.email })
         if (existingUser)
             return {
