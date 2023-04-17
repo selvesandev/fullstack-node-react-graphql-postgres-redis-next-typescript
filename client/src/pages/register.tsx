@@ -3,12 +3,12 @@ import { Formik, Form } from "formik";
 import { Wrapper } from "../components/Wrapper";
 import { InputField } from "../components/InputField";
 import { useMutation } from 'urql';
-import gql from 'graphql-tag';
+// import gql from 'graphql-tag';
 
 
 interface RegisterProps {}
 
-const REGISTER_MUTATION = gql`
+const REGISTER_MUTATION = `
 mutation($email: String!, $password: String!) {
     register(options: { email: $email, password: $password }) {
         user {
@@ -27,7 +27,6 @@ const Register: React.FC<RegisterProps> = () => {
   return (
     <Wrapper>
         <Formik initialValues={{ email: "", password: "",}} onSubmit={(values) => {
-            console.log(values,registerMutation);
             return registerMutation(values);
         }}>
         {({isSubmitting}) => {
