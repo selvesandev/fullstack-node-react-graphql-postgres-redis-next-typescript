@@ -1,7 +1,9 @@
 import { MyContext } from "src/types";
-import { Arg, Ctx, Field, InputType, Mutation, ObjectType, Resolver } from "type-graphql";
+import { Arg, Ctx, Field, InputType, Mutation, ObjectType, Query, Resolver, UseMiddleware } from "type-graphql";
 import { User } from "./../entities/User";
 import argon2 from "argon2";
+import { sign } from "jsonwebtoken";
+import { AuthMiddleware } from "../middlewares/AuthMiddleware";
 
 @InputType()
 class EmailPasswordInput {
@@ -28,6 +30,16 @@ class UserResponse {
 
     @Field(() => User, { nullable: true })
     user?: User;
+}
+
+@ObjectType()
+class LoginResponse {
+    @Field(() => String, { nullable: true })
+    accessToken?: String
+    @Field(() => String, { nullable: true })
+    refreshToken?: String
+    @Field(() => [FieldError], { nullable: true })
+    error?: FieldError[];
 }
 
 @Resolver()
@@ -81,11 +93,34 @@ export class UserResolver {
         }
     }
 
-    @Mutation(() => UserResponse)
+
+    @Query(() => UserResponse, { nullable: true })
+    @UseMiddleware(AuthMiddleware)
+    async me(
+        @Ctx() { payload, em }: MyContext
+    ) {
+        if (!payload?.userId) {
+            return {
+                error: [
+                    {
+                        field: 'auth',
+                        message: 'Unauthenticated'
+                    }
+                ]
+            };
+        }
+
+        const user = await em.findOne(User, { id: parseInt(payload.userId) })
+        return {
+            user
+        }
+    }
+
+    @Mutation(() => LoginResponse)
     async login(
         @Arg('options') options: EmailPasswordInput,
-        @Ctx() { em }: MyContext
-    ): Promise<UserResponse> {
+        @Ctx() { em, res }: MyContext
+    ): Promise<LoginResponse> {
         const user = await em.findOne(User, {
             email: options.email
         });
@@ -109,9 +144,14 @@ export class UserResolver {
                 ]
             }
         }
+        res.cookie('jrt', sign({ userId: user.id }, (process.env.JWT_REFRESH_TOKEN || 'secret_ref'), {
+            expiresIn: '7d'
+        }), {
+            httpOnly: true
+        })
 
         return {
-            user: user
-        };
+            accessToken: sign({ userId: user.id }, (process.env.JWT_ACCESS_TOKEN || 'secret_acc'), { expiresIn: '15m' })
+        }
     }
 }
