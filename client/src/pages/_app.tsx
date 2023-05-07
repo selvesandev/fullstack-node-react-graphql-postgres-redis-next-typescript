@@ -2,7 +2,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 
 import theme from '../theme'
 import { AppProps } from 'next/app'
-import { Provider, createClient, cacheExchange, fetchExchange } from 'urql';
+import { Provider, createClient, cacheExchange, fetchExchange, } from 'urql';
 
 const client = createClient({
   url: 'http://localhost:4000/graphql',
@@ -10,12 +10,16 @@ const client = createClient({
     cacheExchange,
     fetchExchange
   ],
-  // fetchOptions: () => {
-  //   const token = getToken();
-  //   return {
-  //     headers: { authorization: token ? `Bearer ${token}` : '' },
-  //   };
-  // },
+  fetchOptions: () => {
+    // const token = getToken();
+    return {
+      // credentials: 'include',
+      headers: { 
+        // withCredentials: true,
+        // authorization: token ? `Bearer ${token}` : '' 
+      },
+    };
+  },
 });
 
 function MyApp({ Component, pageProps }: AppProps) {
