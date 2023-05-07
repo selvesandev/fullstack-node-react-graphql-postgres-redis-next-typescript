@@ -8,10 +8,14 @@ import { buildSchema } from 'type-graphql';
 import { CategoryResolver } from './resolvers/CategoryResolver';
 import { TestResolver } from './resolvers/TestResolver';
 import { UserResolver } from './resolvers/UserResolver';
+import cookieParser from 'cookie-parser';
 // import RedisStore from "connect-redis";
 // import session from "express-session";
 import { createClient } from "redis"
 import { MyContext } from './types';
+import { verify } from 'jsonwebtoken';
+import { User } from './entities/User';
+import { genJWTToken, sendRefreshToken, GenType } from './utils/jwtToken';
 let redisClient = createClient()
 redisClient.connect().catch(console.error)
 
@@ -20,13 +24,34 @@ const db = async () => {
     await orm.getMigrator().up();
 
     const app = express();
+    app.use(cookieParser())
+    app.get('/', (_req, res) => res.send('Welcom!!! GraphQL Server'));
+    app.post('/refresh-token', async (req, res) => {
+        const jsonRefreshToken = req.cookies.jrt;
+        if (!jsonRefreshToken) return res.send({ ok: false })
+        try {
+            const payload: any = verify(jsonRefreshToken, process.env.JWT_REFRESH_TOKEN!);
+            const user = await orm.em.getRepository(User).findOne({ id: payload.userId });
+            if (!user) return res.status(401).send({ ok: false })
+            if (user.tokenVersion !== payload.tokenVersion) return res.status(401).send({ ok: false })
 
-    // app.use(cors({
+            sendRefreshToken(res, { userId: user.id, tokenVersion: user.tokenVersion });
+
+            return res.send({
+                ok: true,
+                accessToken: genJWTToken({ userId: user.id }, GenType.access),
+            })
+        } catch (error) {
+            return res.status(401).send({ ok: false })
+        }
+    })
+
+    // app.use(cors({-0000999898898877666765544655555
     //     origin: 'http://localhost:3000',
     //     credentials: true
     // }))
     // let redisStore = new RedisStore({
-    //     client: redisClient,
+    //     client: redisClient,jh \098709876545678654],,,       `               
     //     // prefix: "myapp:",
     // })
     // app.options('*', cors()) // include before other routes

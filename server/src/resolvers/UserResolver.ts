@@ -1,9 +1,10 @@
 import { MyContext } from "src/types";
-import { Arg, Ctx, Field, InputType, Mutation, ObjectType, Query, Resolver, UseMiddleware } from "type-graphql";
+import { Arg, Ctx, Field, InputType, Int, Mutation, ObjectType, Query, Resolver, UseMiddleware } from "type-graphql";
 import { User } from "./../entities/User";
 import argon2 from "argon2";
 import { sign } from "jsonwebtoken";
 import { AuthMiddleware } from "../middlewares/AuthMiddleware";
+import { sendRefreshToken } from "../utils/jwtToken";
 
 @InputType()
 class EmailPasswordInput {
@@ -94,6 +95,19 @@ export class UserResolver {
     }
 
 
+    @Mutation(() => Boolean)
+    async revokeRefreshTokenForUser(
+        @Arg('userId', () => Int) userId: number,
+        @Ctx() { em }: MyContext
+    ) {
+        const user = await em.findOne(User, { id: userId });
+        if (!user) return false;
+        user.tokenVersion = user.tokenVersion! + 1
+        await em.persistAndFlush(user);
+
+        return true;
+    }
+
     @Query(() => UserResponse, { nullable: true })
     @UseMiddleware(AuthMiddleware)
     async me(
@@ -144,14 +158,12 @@ export class UserResolver {
                 ]
             }
         }
-        res.cookie('jrt', sign({ userId: user.id }, (process.env.JWT_REFRESH_TOKEN || 'secret_ref'), {
-            expiresIn: '7d'
-        }), {
-            httpOnly: true
-        })
+
+        const jrt = sendRefreshToken(res, { userId: user.id, tokenVersion: user.tokenVersion })
 
         return {
-            accessToken: sign({ userId: user.id }, (process.env.JWT_ACCESS_TOKEN || 'secret_acc'), { expiresIn: '15m' })
+            accessToken: sign({ userId: user.id }, (process.env.JWT_ACCESS_TOKEN || 'secret_acc'), { expiresIn: '15m' }),
+            refreshToken: jrt
         }
     }
 }

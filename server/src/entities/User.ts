@@ -19,6 +19,9 @@ export class User {
     @Property()
     password!: string;
 
+    @Property({ default: 0 })
+    tokenVersion?: number;
+
     @Field()
     @Property({ onCreate: () => new Date() })
     createdAt?: Date = new Date();

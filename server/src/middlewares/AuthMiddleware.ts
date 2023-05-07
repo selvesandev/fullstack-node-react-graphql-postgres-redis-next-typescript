@@ -1,15 +1,15 @@
 import { verify } from "jsonwebtoken";
 import { MyContext } from "src/types";
-import { Field, ObjectType } from "type-graphql";
+// import { Field, ObjectType } from "type-graphql";
 import { MiddlewareFn } from "type-graphql/dist/interfaces/Middleware";
 
-@ObjectType()
-class FieldError {
-    @Field()
-    field: string;
-    @Field()
-    message: string;
-}
+// @ObjectType()
+// class FieldError {
+//     @Field()
+//     field: string;
+//     @Field()
+//     message: string;
+// }
 
 
 
