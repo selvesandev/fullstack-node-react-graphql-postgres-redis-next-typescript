@@ -35,12 +35,20 @@ export type FieldError = {
   message: Scalars['String'];
 };
 
+export type LoginResponse = {
+  __typename?: 'LoginResponse';
+  accessToken?: Maybe<Scalars['String']>;
+  error?: Maybe<Array<FieldError>>;
+  refreshToken?: Maybe<Scalars['String']>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   createCategory: Category;
   deleteCategory: Scalars['Boolean'];
-  login: UserResponse;
+  login: LoginResponse;
   register: UserResponse;
+  revokeRefreshTokenForUser: Scalars['Boolean'];
   updateCategory: Category;
 };
 
@@ -62,6 +70,11 @@ export type MutationLoginArgs = {
 
 export type MutationRegisterArgs = {
   options: EmailPasswordInput;
+};
+
+
+export type MutationRevokeRefreshTokenForUserArgs = {
+  userId: Scalars['Int'];
 };
 
 
@@ -104,7 +117,7 @@ export type LoginMutationVariables = Exact<{
 }>;
 
 
-export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'UserResponse', error?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, user?: { __typename?: 'User', id: number, email: string } | null } };
+export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'LoginResponse', accessToken?: string | null, refreshToken?: string | null, error?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null } };
 
 export type RegisterMutationVariables = Exact<{
   email: Scalars['String'];
@@ -122,10 +135,8 @@ export const LoginDocument = gql`
       field
       message
     }
-    user {
-      id
-      email
-    }
+    accessToken
+    refreshToken
   }
 }
     `;

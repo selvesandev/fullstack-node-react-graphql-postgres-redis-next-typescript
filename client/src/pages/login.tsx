@@ -16,7 +16,7 @@ const Login: React.FC<LoginProps> = () => {
     <Wrapper>
         <Formik initialValues={{ email: "", password: "",}} onSubmit={async (values,{ setErrors }) => {
             const response = await loginMutation(values);
-            if(response.data?.login.error){
+            if(response.data?.login.error) {
                 setErrors(toErrorMap(response.data.login.error));
             } else {
                 router.push('/');
