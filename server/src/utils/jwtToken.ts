@@ -28,5 +28,3 @@ export const genJWTToken = (payload: payloadType, genType: GenType = GenType.acc
         expiresIn: genType === GenType.access ? '15m' : '7d'
     });
 }
-
-// export const 
