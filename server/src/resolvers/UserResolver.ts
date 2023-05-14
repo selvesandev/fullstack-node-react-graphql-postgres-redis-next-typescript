@@ -61,7 +61,6 @@ export class UserResolver {
             }
         }
 
-
         const existingUser = await em.findOne(User, { email: options.email })
         if (existingUser)
             return {
@@ -160,9 +159,13 @@ export class UserResolver {
         }
 
         const jrt = sendRefreshToken(res, { userId: user.id, tokenVersion: user.tokenVersion })
-
+        const jat = sign({ userId: user.id }, (process.env.JWT_ACCESS_TOKEN || 'secret_acc'), { expiresIn: '15m' });
+        res.cookie('jat', jat, {
+            httpOnly: false,
+            expires: new Date(Date.now() + (7 * 24 * 3600 * 1000))
+        })
         return {
-            accessToken: sign({ userId: user.id }, (process.env.JWT_ACCESS_TOKEN || 'secret_acc'), { expiresIn: '15m' }),
+            accessToken: jat,
             refreshToken: jrt
         }
     }

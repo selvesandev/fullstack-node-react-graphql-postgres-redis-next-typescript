@@ -2,7 +2,7 @@ import { MikroORM } from '@mikro-orm/core';
 import mikroOrmConfig from './mikro-orm.config';
 import express from 'express';
 import 'dotenv/config';
-// import cors from 'cors';
+import cors from 'cors';
 import { ApolloServer } from 'apollo-server-express';
 import { buildSchema } from 'type-graphql';
 import { CategoryResolver } from './resolvers/CategoryResolver';
@@ -24,6 +24,10 @@ const db = async () => {
     await orm.getMigrator().up();
 
     const app = express();
+    app.use(cors({
+        origin: 'http://localhost:3000',
+        credentials: true
+    }))
     app.use(cookieParser())
     app.get('/', (_req, res) => res.send('Welcom!!! GraphQL Server'));
     app.post('/refresh-token', async (req, res) => {
@@ -46,10 +50,7 @@ const db = async () => {
         }
     })
 
-    // app.use(cors({-0000999898898877666765544655555
-    //     origin: 'http://localhost:3000',
-    //     credentials: true
-    // }))
+
     // let redisStore = new RedisStore({
     //     client: redisClient,jh \098709876545678654],,,       `               
     //     // prefix: "myapp:",
@@ -81,7 +82,7 @@ const db = async () => {
         context: ({ req, res }): MyContext => ({ em: orm.em, req, res })
     });
     await apolloServer.start();
-    apolloServer.applyMiddleware({ app });
+    apolloServer.applyMiddleware({ app, cors: false });
     app.listen(4000, () => {
         console.log('server is listening on port 4000. http://localhost:4000');
     });

@@ -11,11 +11,12 @@ interface payloadType {
     tokenVersion?: number
 }
 
-export const sendRefreshToken = (res: Response, payload: payloadType) => {
+export const sendRefreshToken = (res: Response, payload: payloadType, httpOnly = true) => {
     const token = genJWTToken(payload, GenType.refresh)
 
     res.cookie('jrt', token, {
-        httpOnly: true
+        httpOnly: httpOnly,
+        expires: new Date(Date.now() + (7 * 24 * 3600 * 1000)) //1 weeks 
     })
 
     return token;

@@ -3,6 +3,8 @@ import { ChakraProvider } from '@chakra-ui/react'
 import theme from '../theme'
 import { AppProps } from 'next/app'
 import { Provider, createClient, cacheExchange, fetchExchange, } from 'urql';
+import { getAccessToken } from '../utils/authToken';
+
 
 const client = createClient({
   url: 'http://localhost:4000/graphql',
@@ -11,18 +13,18 @@ const client = createClient({
     fetchExchange
   ],
   fetchOptions: () => {
-    // const token = getToken();
+    const jat = getAccessToken('jat');
     return {
-      // credentials: 'include',
+      credentials: 'include',
       headers: { 
-        // withCredentials: true,
-        // authorization: token ? `Bearer ${token}` : '' 
+        authorization: jat ? `Bearer ${jat}` : '' 
       },
     };
   },
 });
 
 function MyApp({ Component, pageProps }: AppProps) {
+  console.log('my app');
   return (
     <Provider value={client}>
       <ChakraProvider theme={theme}>

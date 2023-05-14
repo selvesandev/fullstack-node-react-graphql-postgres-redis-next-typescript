@@ -29,6 +29,15 @@ export const AuthMiddleware: MiddlewareFn<MyContext> = ({ context }, next) => {
                 }
             ]
         });
+
+        // return context.res.send({
+        //     error: [
+        //         {
+        //             field: 'unknow',
+        //             message: 'Unauthenticated Failed'
+        //         }
+        //     ]
+        // })
     }
     return next();
 }
