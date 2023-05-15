@@ -24,7 +24,6 @@ const client = createClient({
 });
 
 function MyApp({ Component, pageProps }: AppProps) {
-  console.log('my app');
   return (
     <Provider value={client}>
       <ChakraProvider theme={theme}>
