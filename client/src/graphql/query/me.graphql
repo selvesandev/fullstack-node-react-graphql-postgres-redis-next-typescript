@@ -5,8 +5,7 @@ query Me {
       message
     }
     user {
-      id
-      email
+      ...UserFragment
     }
   }
 }

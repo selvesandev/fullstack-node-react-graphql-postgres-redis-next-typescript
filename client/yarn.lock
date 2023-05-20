@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@0no-co/graphql.web@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.npmjs.org/@0no-co/graphql.web/-/graphql.web-1.0.0.tgz"
-  integrity sha512-JBq2pWyDchE1vVjj/+c4dzZ8stbpew4RrzpZ3vYdn1WJFGHfYg6YIX1fDdMKtSXJJM9FUlsoDOxemr9WMM2p+A==
+"@0no-co/graphql.web@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@0no-co/graphql.web/-/graphql.web-1.0.1.tgz#db3da0d2cd41548b50f0583c0d2f4743c767e56b"
+  integrity sha512-6Yaxyv6rOwRkLIvFaL0NrLDgfNqC/Ng9QOPmTmlqW4mORXMEKmh5NYGkIvvt5Yw8fZesnMAqkj8cIqTj8f40cQ==
 
 "@ampproject/remapping@^2.2.0":
   version "2.2.1"
@@ -528,11 +528,6 @@
     "@chakra-ui/react-context" "2.0.8"
     "@chakra-ui/shared-utils" "2.0.5"
     "@chakra-ui/spinner" "2.0.13"
-
-"@chakra-ui/anatomy@2.1.1":
-  version "2.1.1"
-  resolved "https://registry.npmjs.org/@chakra-ui/anatomy/-/anatomy-2.1.1.tgz"
-  integrity sha512-LUHAoqJAgxAqmyckG5bUpBrfEo1FleEyY+1A8hkWciy58gZ+h3GoY9oBpHcdo7XdHPpy3G+3hieK/7i9NLwxAw==
 
 "@chakra-ui/anatomy@2.1.2":
   version "2.1.2"
@@ -1114,11 +1109,6 @@
     "@chakra-ui/form-control" "2.0.18"
     "@chakra-ui/shared-utils" "2.0.5"
 
-"@chakra-ui/shared-utils@2.0.4":
-  version "2.0.4"
-  resolved "https://registry.npmjs.org/@chakra-ui/shared-utils/-/shared-utils-2.0.4.tgz"
-  integrity sha512-JGWr+BBj3PXGZQ2gxbKSD1wYjESbYsZjkCeE2nevyVk4rN3amV1wQzCnBAhsuJktMaZD6KC/lteo9ou9QUDzpA==
-
 "@chakra-ui/shared-utils@2.0.5":
   version "2.0.5"
   resolved "https://registry.npmjs.org/@chakra-ui/shared-utils/-/shared-utils-2.0.5.tgz"
@@ -1234,22 +1224,13 @@
     "@chakra-ui/form-control" "2.0.18"
     "@chakra-ui/shared-utils" "2.0.5"
 
-"@chakra-ui/theme-tools@2.0.17":
+"@chakra-ui/theme-tools@2.0.17", "@chakra-ui/theme-tools@^2.0.2":
   version "2.0.17"
   resolved "https://registry.npmjs.org/@chakra-ui/theme-tools/-/theme-tools-2.0.17.tgz"
   integrity sha512-Auu38hnihlJZQcPok6itRDBbwof3TpXGYtDPnOvrq4Xp7jnab36HLt7KEXSDPXbtOk3ZqU99pvI1en5LbDrdjg==
   dependencies:
     "@chakra-ui/anatomy" "2.1.2"
     "@chakra-ui/shared-utils" "2.0.5"
-    color2k "^2.0.0"
-
-"@chakra-ui/theme-tools@^2.0.2":
-  version "2.0.16"
-  resolved "https://registry.npmjs.org/@chakra-ui/theme-tools/-/theme-tools-2.0.16.tgz"
-  integrity sha512-B/LD+2LNDeHYd/LVCHIJqckVZfhrycTUpNbhRVAiDRaS0AAcsPxKas7liTFkkMkM076YjiHlcla3KpVX+E9tzg==
-  dependencies:
-    "@chakra-ui/anatomy" "2.1.1"
-    "@chakra-ui/shared-utils" "2.0.4"
     color2k "^2.0.0"
 
 "@chakra-ui/theme-utils@2.0.15":
@@ -2231,13 +2212,22 @@
   dependencies:
     "@types/node" "*"
 
-"@urql/core@^4.0.0":
-  version "4.0.4"
-  resolved "https://registry.npmjs.org/@urql/core/-/core-4.0.4.tgz"
-  integrity sha512-r1rB/VMVpCnfnMTTzCAs+HY+UqOHUgpZ+GimLtU4DCTP3C78DK+m4qr36M7KKleggrKgcpcC1TE8eFEVcKzfSQ==
+"@urql/core@>=4.0.0", "@urql/core@^4.0.0":
+  version "4.0.7"
+  resolved "https://registry.yarnpkg.com/@urql/core/-/core-4.0.7.tgz#8918a956f8e2ffbaeb3aae58190d728813de5841"
+  integrity sha512-UtZ9oSbSFODXzFydgLCXpAQz26KGT1d6uEfcylKphiRWNXSWZi8k7vhJXNceNm/Dn0MiZ+kaaJHKcnGY1jvHRQ==
   dependencies:
-    "@0no-co/graphql.web" "^1.0.0"
-    wonka "^6.3.0"
+    "@0no-co/graphql.web" "^1.0.1"
+    wonka "^6.3.2"
+
+"@urql/exchange-graphcache@^6.0.4":
+  version "6.0.4"
+  resolved "https://registry.yarnpkg.com/@urql/exchange-graphcache/-/exchange-graphcache-6.0.4.tgz#55b9dab64369f4a887f10a1a5e5f855ba68283ae"
+  integrity sha512-fzfCUrHzhLycPRa6kYrQYryk0pwmUfeHY9Xqh11A6wtp4/diV7FASlffB5k2j3AWRBxBnqThXDssRXI/G8cACQ==
+  dependencies:
+    "@0no-co/graphql.web" "^1.0.1"
+    "@urql/core" ">=4.0.0"
+    wonka "^6.3.2"
 
 "@whatwg-node/events@^0.0.2":
   version "0.0.2"
@@ -4460,10 +4450,10 @@ which-module@^2.0.0:
   resolved "https://registry.npmjs.org/which-module/-/which-module-2.0.0.tgz"
   integrity sha512-B+enWhmw6cjfVC7kS8Pj9pCrKSc5txArRyaYGe088shv/FGWH+0Rjx/xPgtsWfsUtS27FkP697E4DDhgrgoc0Q==
 
-wonka@^6.3.0:
-  version "6.3.1"
-  resolved "https://registry.npmjs.org/wonka/-/wonka-6.3.1.tgz"
-  integrity sha512-nJyGPcjuBiaLFn8QAlrHd+QjV9AlPO7snOWAhgx6aX0nQLMV6Wi0nqfrkmsXIH0efngbDOroOz2QyLnZMF16Hw==
+wonka@^6.3.0, wonka@^6.3.2:
+  version "6.3.2"
+  resolved "https://registry.yarnpkg.com/wonka/-/wonka-6.3.2.tgz#6f32992b332251d7b696b038990f4dc284b3b33d"
+  integrity sha512-2xXbQ1LnwNS7egVm1HPhW2FyKrekolzhpM3mCwXdQr55gO+tAiY76rhb32OL9kKsW8taj++iP7C6hxlVzbnvrw==
 
 wrap-ansi@^6.2.0:
   version "6.2.0"
